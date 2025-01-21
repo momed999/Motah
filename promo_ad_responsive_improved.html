@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض ترويجي</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2f855a, #38a169); /* ألوان تمثل النجاح والازدهار */
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .promo-container {
+            background: rgba(0, 0, 0, 0.7); /* خلفية داكنة لتسليط الضوء على النص */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%; /* ليتناسب مع جميع الأجهزة */
+            position: absolute; /* جعلها في أعلى الصفحة */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .promo-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ffdd57; /* لون يعبر عن التميز */
+        }
+
+        .promo-text {
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .timer {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffdd57;
+            margin-bottom: 20px;
+        }
+
+        .promo-button {
+            display: inline-block;
+            background-color: #f6ad55; /* لون البرتقالي المحفز */
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .promo-button:hover {
+            background-color: #e57e3b;
+            transform: translateY(-3px); /* رفع الزر عند المرور */
+        }
+
+        /* تصميم زر الإغلاق */
+        .close-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 2em;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: #ffdd57;
+        }
+
+        /* Media Queries لتصميم الأجهزة المختلفة */
+        @media (max-width: 768px) {
+            .promo-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .promo-title {
+                font-size: 2em;
+            }
+
+            .promo-text {
+                font-size: 1.3em;
+            }
+
+            .timer {
+                font-size: 1.8em;
+            }
+
+            .promo-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .promo-title {
+                font-size: 1.8em;
+            }
+
+            .promo-text {
+                font-size: 1.2em;
+            }
+
+            .timer {
+                font-size: 1.6em;
+            }
+
+            .promo-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="promo-container">
+        <button class="close-button" onclick="closePromo()">×</button>
+        <div class="promo-title">اختصر الطريق وتعلّم أسرار النجاح</div>
+        <div class="promo-text">
+            من خبرات الآخرين. ما ستدفعه اليوم ليس مجرد تكلفة، بل استثمار ذكي لقصة نجاح ومشاريع مستقبلية.
+        </div>
+        <div class="timer" id="timer">العرض ينتهي خلال: 4:45:00</div>
+        <a href="#" class="promo-button">ابدأ الآن</a>
+    </div>
+
+    <script>
+        // إعداد وقت النهاية (بعد 4 ساعات و45 دقيقة من الآن)
+        const countdownTime = new Date().getTime() + (4 * 60 * 60 + 45 * 60) * 1000;
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = countdownTime - now;
+
+            if (distance > 0) {
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("timer").innerHTML = 
+                    `العرض ينتهي خلال: ${hours}:${minutes}:${seconds}`;
+            } else {
+                document.getElementById("timer").innerHTML = "انتهى العرض!";
+                clearInterval(timerInterval);
+            }
+        }
+
+        // تحديث العد التنازلي كل ثانية
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer(); // تحديث فوري عند التحميل
+
+        // دالة لإخفاء العرض عند الضغط على زر الإغلاق
+        function closePromo() {
+            document.querySelector('.promo-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
